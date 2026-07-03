@@ -74,9 +74,59 @@ EC2 → RDS on port 5432 only
 Nothing talks to anything unless explicitly allowed.
 
 ## Remote State
-(S3 + DynamoDB)
 
+Terraform state is stored remotely in S3 — not on a local machine.
+
+| Resource | Purpose |
+|----------|---------|
+| **S3 bucket** | `flask-terraform-state-sal` — stores the state file remotely, shared across the team |
+| **S3 versioning** | Enabled — every state change is saved, allows rollback if state gets corrupted |
+| **DynamoDB table** | `flask-terraform-locks` — locks state during `terraform apply`, prevents two engineers from applying at the same time |
+
+### Why remote state matters
+-
 ## How to Deploy
-(prerequisites + commands)
+
+### Prerequisites
+- AWS CLI configured (`aws configure`)
+- Terraform >= 1.0.0 installed
+- AWS IAM user with appropriate permissions
+- SSH key pair created in us-east-1 (`my-key`)
+
+### Steps
+
+1. Clone the repository
+```bash
+git clone https://github.com/Marchanis/flask-infrastructure.git
+cd flask-infrastructure
+```
+
+2. Initialize Terraform and configure remote state
+```bash
+terraform init
+```
+
+3. Review what will be created
+```bash
+terraform plan
+```
+
+4. Deploy the infrastructure
+```bash
+terraform apply
+```
+
+5. After apply, your ALB DNS will be shown in outputs. Open it in your browser.
+
+---
 
 ## How to Destroy
+
+Always destroy when done to avoid unnecessary AWS costs.
+NAT Gateway costs $0.045/hr — destroy when not in use.
+
+```bash
+terraform destroy
+```
+
+> **Warning:** This will delete all infrastructure including the database.
