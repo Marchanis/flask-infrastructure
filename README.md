@@ -5,7 +5,7 @@ containerized Flask application with high availability, private networking,
 automated scaling, and secure secret management.
 
 ## Architecture
-<img width="1720" height="2000" alt="flask_vpc_architecture" src="https://github.com/user-attachments/assets/e7bb5a9d-bc0a-4d5e-b833-45aaa803fd04" />
+<img width="600" height="800" alt="flask_vpc_architecture" src="https://github.com/user-attachments/assets/e7bb5a9d-bc0a-4d5e-b833-45aaa803fd04" />
 
 ## Services Used
 
