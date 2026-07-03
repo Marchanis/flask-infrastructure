@@ -46,7 +46,6 @@ Internet → ALB (public subnet) → EC2 (private subnet) → RDS (private subne
 Private EC2 instances reach the internet for updates via NAT Gateway — 
 but cannot be reached from the internet directly.
 
-```markdown
 ## Security
 
 ### Secret Management
@@ -73,7 +72,6 @@ Bastion → EC2 on port 22 only
 EC2 → RDS on port 5432 only
 ```
 Nothing talks to anything unless explicitly allowed.
-```
 
 ## Remote State
 (S3 + DynamoDB)
