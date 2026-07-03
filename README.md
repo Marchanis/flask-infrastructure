@@ -23,8 +23,24 @@ automated scaling, and secure secret management.
 
 
 ## Infrastructure Overview
-(describe VPC, subnets, security)
 
+### Network
+- **VPC** — `10.0.0.0/16` isolated private network
+- **6 subnets** across 2 availability zones (us-east-1a, us-east-1b)
+  - 2 public subnets — ALB and NAT Gateway
+  - 2 private subnets — EC2 instances
+  - 2 private subnets — RDS PostgreSQL
+
+### Security Groups
+| Resource | Inbound | Source |
+|----------|---------|--------|
+| ALB | 80, 443 | 0.0.0.0/0 (internet) |
+| EC2 | 80 | ALB security group only |
+| EC2 | 22 | Bastion security group only |
+| RDS | 5432 | EC2 security group only |
+| Bastion | 22 | Your IP only |
+
+### Traffic Flow
 ## Security
 (how secrets are handled, private subnets, bastion)
 
