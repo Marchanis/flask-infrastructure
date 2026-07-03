@@ -41,8 +41,39 @@ automated scaling, and secure secret management.
 | Bastion | 22 | Your IP only |
 
 ### Traffic Flow
+Internet → ALB (public subnet) → EC2 (private subnet) → RDS (private subnet)
+
+Private EC2 instances reach the internet for updates via NAT Gateway — 
+but cannot be reached from the internet directly.
+
+```markdown
 ## Security
-(how secrets are handled, private subnets, bastion)
+
+### Secret Management
+- Database credentials (username, password) stored in **AWS SSM Parameter Store** — encrypted, never in code
+- EC2 instances pull secrets at launch time via User Data — no `.env` files committed to GitHub
+- Sensitive Terraform values (passwords) stored in `terraform.tfvars` — listed in `.gitignore`
+
+### Private Networking
+- EC2 instances live in private subnets — no public IP, unreachable from the internet
+- RDS lives in private subnets — only accessible from EC2 via security group rules
+- Private instances reach the internet for updates via **NAT Gateway** — one-way outbound only
+
+### Bastion Host
+- Single entry point into the private network
+- Lives in a public subnet with a public IP
+- SSH access restricted to **your IP only** (`/32` CIDR) via security group
+- Flow: `Your device → Bastion (public) → EC2 (private)`
+
+### Zero-Trust Security Group Chain
+```
+Internet → ALB only
+ALB → EC2 on port 80 only  
+Bastion → EC2 on port 22 only
+EC2 → RDS on port 5432 only
+```
+Nothing talks to anything unless explicitly allowed.
+```
 
 ## Remote State
 (S3 + DynamoDB)
