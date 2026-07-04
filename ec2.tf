@@ -23,6 +23,7 @@ resource "aws_launch_template" "flask_ec2_lt" {
     }
     user_data = base64encode(<<-EOF
                 #!/bin/bash
+                export TERM=xterm-256color
                 yum update -y
                 yum install -y docker git aws-cli
                 systemctl start docker
