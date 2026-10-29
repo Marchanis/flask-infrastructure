@@ -10,6 +10,14 @@ jobs:
 
       steps:
       - uses: actions/checkout@v4
+
+      # Authenticate to AWS  securely via OIDC 
+      - name: Authenticate to AWS via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with: 
+          role-to-assume: arn:aws:iam::889992886230:role/github-actions-terraform-role
+          aws-region: us-east-1
+
       - uses: hashicorp/setup-terraform@v4
       
       - run: terraform fmt -check
