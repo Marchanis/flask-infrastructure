@@ -6,11 +6,11 @@ terraform {
     }
   }
   backend "s3" {
-    bucket         = "flask-terraform-state-sal"
-    key            = "flask-vpc/terraform.tfstate"
-    region         = "us-east-1"
+    bucket       = "flask-terraform-state-sal"
+    key          = "flask-vpc/terraform.tfstate"
+    region       = "us-east-1"
     use_lockfile = true
-    encrypt        = true
+    encrypt      = true
   }
 
   required_version = ">= 1.0.0"
