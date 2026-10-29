@@ -9,7 +9,7 @@ terraform {
     bucket         = "flask-terraform-state-sal"
     key            = "flask-vpc/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "flask-terraform-locks"
+    use_lockfile = true
     encrypt        = true
   }
 
