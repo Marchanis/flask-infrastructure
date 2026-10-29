@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket       = "flask-terraform-state-sal"
+    bucket       = "flask-terraform-state-sall"
     key          = "flask-vpc/terraform.tfstate"
     region       = "us-east-1"
     use_lockfile = true
