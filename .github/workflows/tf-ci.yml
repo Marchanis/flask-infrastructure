@@ -13,9 +13,9 @@ jobs:
       - uses: hashicorp/setup-terraform@v4
       
       - run: terraform fmt -check
-      - run: terraform validate 
-
       - run: terraform init 
+
+      - run: terraform validate 
       - run: terraform plan 
 
   
