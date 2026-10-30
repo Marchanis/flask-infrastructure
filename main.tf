@@ -20,4 +20,3 @@ provider "aws" {
   region = var.region
 }
 
-# testing OIDC pipeline flow
