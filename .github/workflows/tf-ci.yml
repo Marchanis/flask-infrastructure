@@ -38,9 +38,10 @@ jobs:
       - run: terraform fmt -check
       - run: terraform init 
 
-      - run: terraform validate 
-      - run: terraform plan -lock=false
-
-  
+      - name: terraform validate 
+        run: terraform plan -input=false -lock=false
+        env:
+          TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
+          TF_VAR_db_username: ${{ secrets.DB_USERNAME }}
 
   
