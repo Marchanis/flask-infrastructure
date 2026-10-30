@@ -15,7 +15,6 @@ resource "aws_launch_template" "flask_ec2_lt" {
   name                   = "flask-ec2-lt"
   image_id               = var.ami_id
   instance_type          = var.instance_type
-  key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   iam_instance_profile {
     name = aws_iam_instance_profile.ec2_instance_profile.name
