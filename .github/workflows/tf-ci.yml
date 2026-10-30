@@ -1,4 +1,4 @@
-name: Terraform Destroy
+name: terraform Destroy
 
 on:
   workflow_dispatch: # This lets you click "Run workflow" manually in GitHub
