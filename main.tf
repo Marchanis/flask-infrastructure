@@ -6,11 +6,11 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "flask-terraform-state-sal"
-    key    = "flask-vpc/terraform.tfstate"
-    region = "us-east-1"
-    dynamodb_table = "flask-terraform-locks"
-    encrypt = true
+    bucket       = "flask-terraform-state-sall"
+    key          = "flask-vpc/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
   }
 
   required_version = ">= 1.0.0"
@@ -20,4 +20,3 @@ provider "aws" {
   region = var.region
 }
 
-# testing OIDC pipeline flow
