@@ -1,53 +1,27 @@
-name: "Terraform CI/CD Pipeline"
+name: Terraform Destroy
 
-on: 
-  push:
-    branches: 
-      - main
-  pull_request:
-    branches: 
-      - main
-    
-permissions: 
-  id-token: write
-  contents: read
+on:
+  workflow_dispatch: # This lets you click "Run workflow" manually in GitHub
 
 jobs:
-  terraform: 
-    name: "Terraform Plan and Apply"
+  destroy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Configure AWS Credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with: 
-          role-to-assume: arn:aws:iam::889992886230:role/github-actions-terraform-role
-          aws-region: us-east-1
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init  
-        run: terraform init 
-        
-      - name: Terraform Format & Validate
-        run: |
-          terraform fmt -check
-          terraform validate
+      # If you use OIDC (AWS Role assumption)
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::889992886230:role/github-actions-terraform-role
+          aws-region: us-east-1
 
-      - name: Terraform Plan
-        if: github.event_name == 'pull_request'
-        run: terraform plan
-        env:
-          TF_VAR_db_username: ${{ secrets.DB_USERNAME }}
-          TF_VAR_db_password: ${{ secrets.DB_PASSWORD }} 
+      - name: Terraform Init
+        run: terraform init
 
-      - name: Terraform Apply
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
-        env:
-          TF_VAR_db_username: ${{ secrets.DB_USERNAME }}
-          TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
