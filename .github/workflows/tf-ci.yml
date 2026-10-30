@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   terraform: 
-    name: "Terraform Plan & Apply"
+    name: "Terraform Plan and Apply"
     runs-on: ubuntu-latest
 
     steps:
