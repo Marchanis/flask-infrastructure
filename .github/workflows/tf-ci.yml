@@ -3,6 +3,11 @@ name : ci for terraform
 on: 
   pull_request:
     branches: [main]
+    
+concurrency:
+  group: terraform-flask-vpc
+  cancel-in-progress: false
+
 
 jobs:
     test: 
