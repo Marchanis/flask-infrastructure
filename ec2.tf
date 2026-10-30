@@ -31,8 +31,8 @@ resource "aws_launch_template" "flask_ec2_lt" {
                 curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64" -o /usr/local/lib/docker/cli-plugins/docker-compose
                 chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
                 cd /home/ec2-user
-                git clone https://github.com/Marchanis/flask-ec2-app.git
-                cd flask-ec2-app
+                git clone https://github.com/Marchanis/flask-infrastructure.git
+                cd flask-infrastructure
 
                 # Pull secrets from SSM and create .env file
                 echo "DB_HOST=$(aws ssm get-parameter --name '/flask-app/DB_HOST' --with-decryption --query Parameter.Value --output text --region us-east-1)" > .env
