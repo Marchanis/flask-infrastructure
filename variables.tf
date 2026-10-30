@@ -34,11 +34,6 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "key_name" {
-  description = "Key pair name for SSH access"
-  type        = string
-  default     = "my-key"
-}
 
 variable "desired_capacity" {
   description = "Desired number of EC2 instances in the Auto Scaling group"
