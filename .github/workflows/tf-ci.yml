@@ -6,6 +6,9 @@ on:
 jobs:
   destroy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: required
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -13,7 +16,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # If you use OIDC (AWS Role assumption)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
